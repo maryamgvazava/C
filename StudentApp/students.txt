@@ -1,0 +1,252 @@
+[
+  {
+    "name": "George",
+    "rollNumber": 16,
+    "grade": "C"
+  },
+  {
+    "name": "Bob Smith",
+    "rollNumber": 23,
+    "grade": "B"
+  },
+  {
+    "name": "Charlie Brown",
+    "rollNumber": 31,
+    "grade": "C"
+  },
+  {
+    "name": "David Wilson",
+    "rollNumber": 47,
+    "grade": "A"
+  },
+  {
+    "name": "Ella Davis",
+    "rollNumber": 5,
+    "grade": "B"
+  },
+  {
+    "name": "Frankie Miller",
+    "rollNumber": 6,
+    "grade": "A"
+  },
+  {
+    "name": "Grace Taylor",
+    "rollNumber": 44,
+    "grade": "C"
+  },
+  {
+    "name": "Henry Martinez",
+    "rollNumber": 8,
+    "grade": "B"
+  },
+  {
+    "name": "Ivy Anderson",
+    "rollNumber": 9,
+    "grade": "A"
+  },
+  {
+    "name": "Jack Thomas",
+    "rollNumber": 10,
+    "grade": "C"
+  },
+  {
+    "name": "Kara Moore",
+    "rollNumber": 39,
+    "grade": "B"
+  },
+  {
+    "name": "Leo Garcia",
+    "rollNumber": 12,
+    "grade": "A"
+  },
+  {
+    "name": "Mia Martinez",
+    "rollNumber": 13,
+    "grade": "C"
+  },
+  {
+    "name": "Nathan Clark",
+    "rollNumber": 14,
+    "grade": "B"
+  },
+  {
+    "name": "Olivia Rodriguez",
+    "rollNumber": 15,
+    "grade": "A"
+  },
+  {
+    "name": "Paul Lewis",
+    "rollNumber": 1,
+    "grade": "B"
+  },
+  {
+    "name": "Quinn Walker",
+    "rollNumber": 17,
+    "grade": "C"
+  },
+  {
+    "name": "Riley Hall",
+    "rollNumber": 18,
+    "grade": "A"
+  },
+  {
+    "name": "Sophie Allen",
+    "rollNumber": 27,
+    "grade": "B"
+  },
+  {
+    "name": "Thomas Young",
+    "rollNumber": 20,
+    "grade": "C"
+  },
+  {
+    "name": "Uma Scott",
+    "rollNumber": 21,
+    "grade": "A"
+  },
+  {
+    "name": "Victor Harris",
+    "rollNumber": 2,
+    "grade": "B"
+  },
+  {
+    "name": "Wendy Martin",
+    "rollNumber": 23,
+    "grade": "C"
+  },
+  {
+    "name": "Xavier Robinson",
+    "rollNumber": 24,
+    "grade": "A"
+  },
+  {
+    "name": "Yara Perez",
+    "rollNumber": 25,
+    "grade": "B"
+  },
+  {
+    "name": "Zoe Edwards",
+    "rollNumber": 26,
+    "grade": "C"
+  },
+  {
+    "name": "Aaron Kelly",
+    "rollNumber": 19,
+    "grade": "A"
+  },
+  {
+    "name": "Betty Gray",
+    "rollNumber": 28,
+    "grade": "B"
+  },
+  {
+    "name": "Chris Foster",
+    "rollNumber": 29,
+    "grade": "C"
+  },
+  {
+    "name": "Diana Russell",
+    "rollNumber": 30,
+    "grade": "A"
+  },
+  {
+    "name": "Ethan Bell",
+    "rollNumber": 3,
+    "grade": "B"
+  },
+  {
+    "name": "Fiona Stewart",
+    "rollNumber": 32,
+    "grade": "C"
+  },
+  {
+    "name": "George Jenkins",
+    "rollNumber": 33,
+    "grade": "A"
+  },
+  {
+    "name": "Holly Ward",
+    "rollNumber": 34,
+    "grade": "B"
+  },
+  {
+    "name": "Ian Hunter",
+    "rollNumber": 35,
+    "grade": "C"
+  },
+  {
+    "name": "Kevin Powell",
+    "rollNumber": 37,
+    "grade": "B"
+  },
+  {
+    "name": "Lila Patterson",
+    "rollNumber": 38,
+    "grade": "C"
+  },
+  {
+    "name": "Mason Sanders",
+    "rollNumber": 11,
+    "grade": "A"
+  },
+  {
+    "name": "Nina Cook",
+    "rollNumber": 40,
+    "grade": "B"
+  },
+  {
+    "name": "Oscar Ramirez",
+    "rollNumber": 41,
+    "grade": "C"
+  },
+  {
+    "name": "Penny Price",
+    "rollNumber": 42,
+    "grade": "A"
+  },
+  {
+    "name": "Quincy Wood",
+    "rollNumber": 43,
+    "grade": "B"
+  },
+  {
+    "name": "Rachel Bennett",
+    "rollNumber": 7,
+    "grade": "C"
+  },
+  {
+    "name": "Sam Bell",
+    "rollNumber": 45,
+    "grade": "A"
+  },
+  {
+    "name": "Tina Hughes",
+    "rollNumber": 46,
+    "grade": "B"
+  },
+  {
+    "name": "Umar Peterson",
+    "rollNumber": 4,
+    "grade": "C"
+  },
+  {
+    "name": "Vera Richardson",
+    "rollNumber": 50,
+    "grade": "A"
+  },
+  {
+    "name": "Will Carter",
+    "rollNumber": 49,
+    "grade": "B"
+  },
+  {
+    "name": "mariam",
+    "rollNumber": 50,
+    "grade": "A"
+  },
+  {
+    "name": "mariam gvazava",
+    "rollNumber": 51,
+    "grade": "A"
+  }
+]
