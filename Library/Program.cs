@@ -1,132 +1,139 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 public class Program
 {
-    static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        Regex regBookName = new Regex("^[a-zA-Z0-9]+$"); 
-        Regex regAuthor = new Regex("^[a-zA-Z]+$");
+        Regex regBookName = new Regex("^[a-zA-Z0-9 ]+$");
+        Regex regAuthor = new Regex("^[a-zA-Z ]+$");
         Regex regInt = new Regex("^[0-9]+$");
+
         string filepath = "C:\\Users\\us store\\Desktop\\examWorks\\library\\bookList.txt";
 
+        //ვამოწმებთ ფაილი არსებობს თუ არა და ცარიელია თუ არა
+        if (!File.Exists(filepath) || string.IsNullOrWhiteSpace(File.ReadAllText(filepath)))
+        {
+            //File.WriteAllText(filepath, "[]");
+            Console.WriteLine("File is Empty");
+        }
+
+        //კითხულობს მონაცემებს ფაილიდან
         string readFromJson = File.ReadAllText(filepath);
-        List<BookList> book = JsonSerializer.Deserialize<List<BookList>>(readFromJson);
+        List<BookList> book = JsonSerializer.Deserialize<List<BookList>>(readFromJson) ?? new List<BookList>();
 
         while (true)
         {
-            Console.WriteLine();
-            Console.WriteLine("Menu: ");
+            Console.WriteLine("\nMenu: ");
             Console.WriteLine("1 - View Book List");
             Console.WriteLine("2 - Search for a Book");
             Console.WriteLine("3 - Add a Book to the Catalog");
             Console.WriteLine("4 - Exit menu");
-            Console.WriteLine();
-            Console.WriteLine("Enter service number:");
+            Console.Write("Enter service number: ");
 
-            if (int.TryParse(Console.ReadLine(), out int selectService) && selectService > 0 && selectService < 5)
+            if (int.TryParse(Console.ReadLine().Trim(), out int selectService) && selectService > 0 && selectService < 5)
             {
                 switch (selectService)
                 {
-                    case 1:
+                    case 1: 
+                        if (book.Count == 0)
                         {
-                            foreach (var i in book)
-                            {
-                                i.DisplayBook();
-                            }
+                            Console.WriteLine("The catalog is empty.");
+                        }
+                        else
+                        {
+                            foreach (var b in book)
+                                b.DisplayBook();
+                        }
+                        break;
+
+                    case 2: //წიგნის არასრული სახელით ძებნის დროს ვიყენებთ ასინქრონულ მეთოდს და 
+                            //გვიძებნის ყველა შესაბამის წიგნს
+                        Console.Write("Enter the Title of the book: ");
+                        string searchBook = Console.ReadLine().Trim();
+                        var matchedBooks = await SearchbooksAsync(book.ToArray(), searchBook);
+
+                        if (matchedBooks.Any())
+                        {
+                            Console.WriteLine("\nBooks found:");
+                            foreach (var b in matchedBooks)
+                                b.DisplayBook();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No books found with the given title.");
+                        }
+                        break;
+
+                    case 3: //ვამატებთ წიგნს სახელით, ავტორით და გამოცემის წლით. 
+                            //ვამოწმებთ შეყვანილი ტექსტს RegExp-ით
+                        Console.Write("Enter the Title of the book: ");
+                        string title = Console.ReadLine().Trim();
+                        if (!regBookName.IsMatch(title))
+                        {
+                            Console.WriteLine("Invalid title format. Use alphabetic and numeric characters only.");
                             break;
                         }
 
-                    case 2:
+                        Console.Write("Enter the Author: ");
+                        string author = Console.ReadLine().Trim();
+                        if (!regAuthor.IsMatch(author))
                         {
-                            Console.WriteLine("Enter the Title of the book:");
-                            string searchBook = Console.ReadLine();
-                            bool found = false;
-                            foreach (var title in book)
-                            {
-                                if (string.Equals(searchBook, title.Title, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    Console.WriteLine($"{title.Title} is in the catalog!");
-                                    found = true;
-                                    break;
-                                }
-                            }
-                            if (!found)
-                            {
-                                Console.WriteLine("Entered title is not in the catalog or there was a typing error.");
-                            }
+                            Console.WriteLine("Invalid author name format. Use alphabetic characters only.");
                             break;
                         }
 
-
-
-                    case 3:
+                        Console.Write("Enter the Publish Year: ");
+                        if (!int.TryParse(Console.ReadLine().Trim(), out int year) || !regInt.IsMatch(year.ToString()))
                         {
-                            string title, author;
-                            int year;
-
-                            Console.WriteLine("Enter the Title of the book:");
-                            title = Console.ReadLine();
-                            if (!regBookName.IsMatch(title))
-                            {
-                                Console.WriteLine("Title should contain alphabet characters only.");
-                                break;
-                            }
-                 
-                            Console.WriteLine("Enter the Author:");
-                            author = Console.ReadLine();
-                            if (!regAuthor.IsMatch(author))
-                            {
-                                Console.WriteLine("Author name should contain alphabet characters only.");
-                                break;
-                            }
-                      
-                            Console.WriteLine("Enter the Publish Year:");
-                            string yearInput = Console.ReadLine();
-                            if (!regInt.IsMatch(yearInput) || !int.TryParse(yearInput, out year))
-                            {
-                                Console.WriteLine("Invalid publish year.");
-                                break;
-                            }
-
-                            bool found = false;
-                            BookList newBook = new BookList(title, author, year);
-
-                            foreach (var each in book)
-                            { //თუ იდენტური სახელის, ავტორის და გამოცმის წლის წიგნი არსებობს, მაშინ არ უნდა დაამატოს
-                                if (string.Equals(title, each.Title, StringComparison.OrdinalIgnoreCase) &&
-                                    string.Equals(author, each.Author, StringComparison.OrdinalIgnoreCase) &&
-                                    year == each.Year)
-                                {
-                                    Console.WriteLine($"{each.Title} is already in the catalog!");
-                                    found = true;
-                                    break;
-                                }
-                            }
-
-                            if (!found)
-                            {
-                                book.Add(newBook);
-
-                                string updatedContent = JsonSerializer.Serialize(book, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
-                                File.WriteAllText(filepath, updatedContent);
-
-                                Console.WriteLine("Book was added successfully!");
-                            }
+                            Console.WriteLine("Invalid publish year.");
                             break;
                         }
+                        //ვამოწმებთ ანალოგიური წიგნი თუ უკვე არსებობს კატალოგში
+                        if (book.Any(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase) &&
+                                          b.Author.Equals(author, StringComparison.OrdinalIgnoreCase) &&
+                                          b.Year == year))
+                        {
+                            Console.WriteLine("This book is already in the catalog.");
+                        }
+                        else
+                        {
+                            book.Add(new BookList(title, author, year));
+                            File.WriteAllText(filepath, JsonSerializer.Serialize(book, new JsonSerializerOptions { WriteIndented = true }));
+                            Console.WriteLine("Book added successfully!");
+                        }
+                        break;
 
-                    case 4: { Console.WriteLine("You exited the Menu.");  return;  }
+                    case 4: 
+                        Console.WriteLine("You exited the Menu.");
+                        return;
 
-                    default: Console.WriteLine("Invalid option. Please select a valid menu item."); break;
+                    default:
+                        Console.WriteLine("Invalid option. Please select a valid menu item.");
+                        break;
                 }
             }
-            else { Console.WriteLine("Invalid input. Please enter a number between 1 and 4."); }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+            }
         }
+    }
+
+    //ვქმნით ასინქრონულ მეთოდს წიგნის ძიებისთვის. 
+    public static Task<BookList[]> SearchbooksAsync(BookList[] books, string keyword)
+    {
+        return Task.Run(() =>
+            books
+                .Where(b => b.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToArray()
+        );
     }
 }
 
